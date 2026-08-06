@@ -98,6 +98,10 @@ const typingIndicator = document.getElementById("typing-indicator");
 
 const body = document.body;
 
+let yesButton;
+
+let noButton;
+
 
 // ---------- Funny NO Button ----------
 
@@ -320,6 +324,13 @@ function triggerSuspense() {
                     `;
                     noButton = document.getElementById('no-button');
                     yesButton = document.getElementById('yes-button');
+
+                    yesButton.addEventListener("click", handleYes);
+
+                    noButton.addEventListener("click", handleNoClick);
+
+                    noButton.addEventListener("mouseover", dodge);
+                    
                     container.classList.remove('fade-out');
                     container.classList.add('fade-in');
                     
