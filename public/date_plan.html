@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Your Date</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0e6f6; /* Charming background */
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            margin: 0;
+            padding: 20px;
+            color: #4a4a4a;
+        }
+        .plan-container {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #8a2be2;
+            font-size: 2em;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #6a5acd;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+        .submit-button {
+            padding: 15px 30px;
+            font-size: 1.5em;
+            cursor: pointer;
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+        .submit-button:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="plan-container">
+        <h2>Yayyyyyyy!! Now let's plan our date.</h2>
+        <form id="date-plan-form">
+            <div class="form-group">
+                <label for="date">Which day works best? (Date)</label>
+                <input type="date" id="date" required>
+            </div>
+            <div class="form-group">
+                <label for="time">What time?</label>
+                <input type="time" id="time" required>
+            </div>
+            <div class="form-group">
+                <label for="place">Where should we go? (Place)</label>
+                <select id="place" required>
+                    <option value="Coffee Shop">Coffee Shop</option>
+                    <option value="Restaurant">Restaurant</option>
+                    <option value="Cinema">Cinema</option>
+                    <option value="Park">Park</option>
+                    <option value="Somewhere else">Somewhere else</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="location">Location (Let her choose)</label>
+                <input type="text" id="location" placeholder="Enter location" required>
+            </div>
+            <div class="form-group">
+                <label for="notes">Notes (Anything you'd like to tell me?)</label>
+                <textarea id="notes" rows="4"></textarea>
+            </div>
+            <button type="submit" class="submit-button">Confirm</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('date-plan-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const place = document.getElementById('place').value;
+            const location = document.getElementById('location').value;
+            const notes = document.getElementById('notes').value;
+
+            localStorage.setItem('dateDetails', JSON.stringify({ date, time, place, location, notes }));
+            window.location.href = 'final_page.html';
+        });
+    </script>
+</body>
+</html>

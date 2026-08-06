@@ -1,0 +1,79 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    transition: background-color 1s ease-in-out;
+    overflow: hidden; /* Prevent scrollbars due to absolute positioning */
+}
+.question-container {
+    text-align: center;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 80%;
+    max-width: 500px;
+    opacity: 0;
+    transition: opacity 1s ease-in-out, transform 0.3s ease;
+    position: relative;
+}
+.question-container.fade-in {
+    opacity: 1;
+}
+.question-container.fade-out {
+    opacity: 0;
+}
+h2 {
+    margin-bottom: 20px;
+}
+.options button, input[type="text"] {
+    padding: 10px;
+    margin: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+.options button:hover {
+    background-color: #0056b3;
+}
+/* Suspense Styles */
+#suspense-message {
+    color: white;
+    font-size: 1.5em;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+}
+#typing-indicator {
+    display: none;
+    font-size: 1em;
+    margin-top: 10px;
+}
+/* Dodging Button Styles */
+#dodging-buttons {
+    display: none;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+#no-button {
+    position: relative;
+    transition: all 0.1s ease;
+    width: 100px;
+}
+#yes-button {
+    width: 100px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
