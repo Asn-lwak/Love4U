@@ -77,10 +77,21 @@ const questions = [
 
 
 const state = {
+
     currentQuestion: 0,
+
     attempts: 0,
+
     maxAttempts: 50,
-    answers: {}
+
+    answers: {},
+
+    yesScale: 1,
+
+    coffeeStep: 0,
+
+    canCatchNo: false
+
 };
 
 
@@ -102,20 +113,30 @@ let yesButton;
 
 let noButton;
 
+let coffeeMessage;
+
 
 // ---------- Funny NO Button ----------
 
 const playfulLines = [
 
-    "Are you really going to say no?",
+    "Are you sure? 🥺",
 
-    "Come on, just a coffee!",
+    "Really sure? 😭",
 
-    "It's getting harder to catch me 😭",
+    "It's only one coffee ☕",
 
-    "Think carefully about this choice...",
+    "I'll even buy dessert 🍰",
 
-    "Perhaps fate is trying to tell you something!"
+    "Please? 🥹",
+
+    "You're making this difficult 😂",
+
+    "Almost caught me!",
+
+    "You're really determined!",
+
+    "Fine... one last chance 😭"
 
 ];
 
@@ -296,102 +317,190 @@ async function submitResponses() {
 
 }
 
-function triggerSuspense() {
-    container.classList.add('fade-out');
-    body.style.backgroundColor = '#000'; // Fade to black
+function wait(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-    setTimeout(() => {
-        container.style.display = 'none';
-        suspenseMessage.style.opacity = 1;
-        typingIndicator.style.display = 'inline';
-        
-        // Part 3: "typing..." animation and final question reveal
-        setTimeout(() => {
-            typingIndicator.style.display = 'none';
-            suspenseMessage.innerHTML = "There's actually one last question...";
-            
-            setTimeout(() => {
-                // Final Question
-                suspenseMessage.style.opacity = 0;
-                body.style.backgroundColor = '#f0f0f0';
-                
-                setTimeout(() => {
-                    container.style.display = 'block';
-                    questionText.textContent = "Will you go on a coffee date with me?";
-                    optionsContainer.innerHTML = `
-                        <button id="yes-button">YES</button>
-                        <button id="no-button">NO</button>
-                    `;
-                    noButton = document.getElementById('no-button');
-                    yesButton = document.getElementById('yes-button');
+async function triggerSuspense() {
 
-                    yesButton.addEventListener("click", handleYes);
+    container.classList.add("fade-out");
 
-                    noButton.addEventListener("click", handleNoClick);
+    await wait(600);
 
-                    noButton.addEventListener("mouseover", dodge);
-                    
-                    container.classList.remove('fade-out');
-                    container.classList.add('fade-in');
-                    
-                    // Part 4: Dodging Button setup
-                    noButton.style.position = 'relative';
-                    
-                }, 1000);
-            }, 3000);
-        }, 2000);
-    }, 1000);
+    container.style.display = "none";
+
+    body.style.backgroundColor = "#000";
+
+    suspenseMessage.style.opacity = "1";
+
+    typingIndicator.style.display = "inline";
+
+    suspenseMessage.textContent = "Thank you...";
+
+    await wait(1800);
+
+    suspenseMessage.textContent =
+        "You've answered every question.";
+
+    await wait(1800);
+
+    suspenseMessage.textContent =
+        "There's just one last thing...";
+
+    await wait(1800);
+
+    suspenseMessage.textContent =
+        "I've wanted to ask you for quite a while.";
+
+    await wait(2200);
+
+    typingIndicator.style.display = "none";
+
+    suspenseMessage.style.opacity = "0";
+
+    await wait(600);
+
+    showCoffeeQuestion();
+
+}
+
+function showCoffeeQuestion() {
+
+    body.style.backgroundColor = "#f7f2eb";
+
+    container.style.display = "block";
+
+    container.classList.remove("fade-out");
+    container.classList.add("fade-in");
+
+    questionText.textContent =
+        "Will you go on a coffee date with me? ☕";
+
+    optionsContainer.innerHTML = `
+
+        <div id="coffee-buttons">
+
+            <button id="yes-button">
+                YES ❤️
+            </button>
+
+            <button id="no-button">
+                NO
+            </button>
+
+        </div>
+
+        <p id="coffee-message"></p>
+
+    `;
+
+    setupCoffeeButtons();
+
+}
+
+function setupCoffeeButtons() {
+
+    yesButton = document.getElementById("yes-button");
+
+    noButton = document.getElementById("no-button");
+
+    coffeeMessage = document.getElementById("coffee-message");
+
+    yesButton.addEventListener("click", handleYes);
+
+    noButton.addEventListener("click", handleNoClick);
+
+}
+
+function updateCoffeeMessage() {
+
+    const index = Math.min(
+        state.coffeeStep,
+        playfulLines.length - 1
+    );
+
+    coffeeMessage.textContent = playfulLines[index];
+
+    state.coffeeStep++;
+
 }
 
 function handleYes() {
-    window.location.href = 'date_plan.html';
+
+    yesButton.textContent = "YAY!! ❤️";
+
+    setTimeout(() => {
+
+        window.location.href = "date_plan.html";
+
+    }, 1000);
+
 }
 
-function handleNoClick() {
-    // Playful response if clicked
-    alert("oh okayyy 😭");
-    state.attempts = state.maxAttempts; // Finalize the state
-    noButton.textContent = "oh okayyy";
-    noButton.onmouseover = null;
-    noButton.style.position = 'static';
-    noButton.style.transform = 'none';
-}
+function handleNoClick(event) {
 
-// Part 4: THE DODGING BUTTON logic refined with constrained movement
-function dodge(event) {
+    if (state.canCatchNo) {
+
+        coffeeMessage.textContent =
+            "Aww... that's okay ❤️";
+
+        return;
+
+    }
+
     state.attempts++;
 
+    growYesButton();
+
+    updateCoffeeMessage();
+
+    moveNoButton();
+
     if (state.attempts >= state.maxAttempts) {
-        noButton.textContent = "oh okayyy"; // Final playful conclusion
-        noButton.onmouseover = null;
-        noButton.style.position = 'static'; // Stop dodging
-        noButton.style.transform = 'none';
-        return;
+
+        state.canCatchNo = true;
+
+        coffeeMessage.textContent =
+            "Fine... you win 😭";
+
+        noButton.style.position = "static";
+
+        noButton.style.left = "";
+
+        noButton.style.top = "";
+
     }
 
-    // Change text content based on attempts
-    if (state.attempts >= 10 && state.attempts < state.maxAttempts) {
-        const lineIndex = Math.floor(Math.random() * playfulLines.length);
-        noButton.textContent = playfulLines[lineIndex];
-    } else if (state.attempts === 7) {
-        noButton.textContent = "Are you sureeeeee?";
-    } else if (state.attempts === 8) {
-        noButton.textContent = "Really sure?";
-    } else if (state.attempts === 9) {
-        noButton.textContent = "Last chance...";
-    }
-
-    // Calculate new position constrained within the visible container bounds
-    const maxX = window.innerWidth - noButton.offsetWidth - 20;
-    const maxY = window.innerHeight - noButton.offsetHeight - 20;
-
-    const x = Math.random() * maxX;
-    const y = Math.random() * maxY;
-
-    noButton.style.position = "absolute";
-    noButton.style.left = `${x}px`;
-    noButton.style.top = `${y}px`;
 }
+
+function moveNoButton() {
+
+    const padding = 20;
+
+    const x =
+        Math.random() *
+        (window.innerWidth - noButton.offsetWidth - padding);
+
+    const y =
+        Math.random() *
+        (window.innerHeight - noButton.offsetHeight - padding);
+
+    noButton.style.position = "fixed";
+
+    noButton.style.left = `${x}px`;
+
+    noButton.style.top = `${y}px`;
+
+}
+
+function growYesButton() {
+
+    state.yesScale += 0.04;
+
+    yesButton.style.transform = `scale(${state.yesScale})`;
+
+}
+
 
 document.addEventListener("DOMContentLoaded", () => {
     showQuestion();
