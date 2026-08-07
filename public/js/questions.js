@@ -147,6 +147,7 @@ function showQuestion() {
 
     container.classList.remove("fade-in");
     container.classList.add("fade-out");
+    container.classList.remove("coffee-mode");
 
     setTimeout(() => {
 
@@ -389,6 +390,7 @@ function showCoffeeQuestion() {
 
     container.classList.remove("fade-out");
     container.classList.add("fade-in");
+    container.classList.remove("coffee-mode");
 
     questionText.textContent =
         "Will you go on a coffee date with me? ☕";
@@ -608,6 +610,7 @@ function handleNoClick(event) {
 
 }
 
+///not used anymore but I wanna keep
 function moveNoButton() {
 
     const padding = 20;
@@ -627,6 +630,7 @@ function moveNoButton() {
     noButton.style.top = `${y}px`;
 
 }
+
 
 function growYesButton() {
 

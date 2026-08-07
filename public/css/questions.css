@@ -68,6 +68,7 @@ h2 {
     transform: translate(-50%, -50%);
     width: 100%;
 }
+
 #typing-indicator {
     display: none;
     font-size: 1em;
@@ -168,6 +169,231 @@ body.romantic-suspense #suspense-message {
         transform 0.8s ease;
 
     z-index: 2;
+}
+
+/* =================================
+   Romantic Coffee Question
+================================= */
+
+#coffee-icon {
+    position: relative;
+    z-index: 2;
+
+    font-size: clamp(3rem, 10vw, 5rem);
+
+    margin-bottom: 18px;
+
+    filter:
+        drop-shadow(0 0 12px rgba(255, 180, 200, 0.25));
+
+    animation: coffeeFloat 3.5s ease-in-out infinite;
+}
+
+/* ================================
+   Coffee Question Only
+================================ */
+
+#question-container.coffee-mode #question-text {
+    position: relative;
+    z-index: 2;
+
+    max-width: 800px;
+
+    margin: 0 auto;
+
+    text-align: center;
+
+    font-size: clamp(1.5rem, 4vw, 2.3rem);
+
+    line-height: 1.4;
+
+    letter-spacing: 0.02em;
+}
+
+
+/* -----------------------------
+   Coffee Buttons
+----------------------------- */
+
+#coffee-buttons {
+    position: relative;
+
+    z-index: 9999;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 28px;
+
+    min-height: 90px;
+
+    margin-top: 28px;
+}
+
+
+/* -----------------------------
+   YES Button
+----------------------------- */
+
+#yes-button {
+    position: relative;
+
+    z-index: 10000;
+
+    border: none;
+
+    border-radius: 999px;
+
+    padding: 14px 30px;
+
+    background: rgba(255, 255, 255, 0.12);
+
+    color: #fff;
+
+    font-size: 1rem;
+
+    font-weight: 600;
+
+    letter-spacing: 0.04em;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 0 15px rgba(255, 150, 190, 0.2);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+#yes-button:hover {
+
+    background: rgba(255, 255, 255, 0.2);
+
+    box-shadow:
+        0 0 25px rgba(255, 150, 190, 0.4);
+}
+
+
+/* -----------------------------
+   NO Button
+----------------------------- */
+
+#no-button {
+    position: relative;
+
+    z-index: 9999;
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+
+    border-radius: 999px;
+
+    padding: 14px 30px;
+
+    background: rgba(255, 255, 255, 0.06);
+
+    color: rgba(255, 255, 255, 0.8);
+
+    font-size: 1rem;
+
+    cursor: pointer;
+
+    transition:
+        left 0.18s ease,
+        top 0.18s ease,
+        transform 0.2s ease,
+        background 0.25s ease;
+}
+
+
+/* -----------------------------
+   Playful Message
+----------------------------- */
+
+#coffee-message {
+
+    position: relative;
+
+    z-index: 1;
+
+    min-height: 32px;
+
+    margin-top: 20px;
+
+    padding: 0 20px;
+
+    text-align: center;
+
+    color: rgba(255, 220, 230, 0.9);
+
+    font-size: 1rem;
+
+    font-style: italic;
+
+    letter-spacing: 0.02em;
+
+    opacity: 0.9;
+
+    transition:
+        opacity 0.4s ease,
+        transform 0.4s ease;
+}
+
+
+/* -----------------------------
+   Coffee Animation
+----------------------------- */
+
+@keyframes coffeeFloat {
+
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+
+}
+
+
+/* -----------------------------
+   Mobile
+----------------------------- */
+
+@media (max-width: 600px) {
+
+    #coffee-buttons {
+
+        gap: 14px;
+
+        min-height: 80px;
+
+        margin-top: 22px;
+    }
+
+    #yes-button,
+    #no-button {
+
+        padding: 12px 22px;
+
+        font-size: 0.95rem;
+    }
+
+    #coffee-message {
+
+        font-size: 0.9rem;
+
+    }
+
 }
 
 @keyframes romanticFloat {
