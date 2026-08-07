@@ -128,15 +128,7 @@ const playfulLines = [
 
     "I'll even buy dessert 🍰",
 
-    "Please? 🥹",
-
-    "You're making this difficult 😂",
-
-    "Almost caught me!",
-
-    "You're really determined!",
-
-    "Fine... one last chance 😭"
+    "Please? ",
 
 ];
 
@@ -388,11 +380,10 @@ async function showSuspenseMessage(message, duration) {
     await wait(500);
 }
 
-
-
 function showCoffeeQuestion() {
 
-    body.style.backgroundColor = "#f7f2eb";
+    // Keep the romantic suspense background
+    body.classList.add("romantic-suspense");
 
     container.style.display = "block";
 
@@ -465,7 +456,7 @@ function handleCursorMove(event) {
             distanceY * distanceY
         );
 
-    const escapeDistance = 120;
+    const escapeDistance = 180;
 
     if (distance < escapeDistance) {
 
@@ -481,12 +472,6 @@ function handleCursorMove(event) {
 function dodgeFromCursor(cursorX, cursorY) {
 
     if (state.canCatchNo) return;
-
-    state.attempts++;
-
-    growYesButton();
-
-    updateCoffeeMessage();
 
     const buttonRect =
         noButton.getBoundingClientRect();
@@ -523,7 +508,7 @@ function dodgeFromCursor(cursorX, cursorY) {
 
     }
 
-    const moveDistance = 180;
+    const moveDistance = 200;
 
     let newX =
         buttonRect.left +
@@ -645,7 +630,7 @@ function moveNoButton() {
 
 function growYesButton() {
 
-    state.yesScale += 0.001;
+    state.yesScale += 0.15;
 
     yesButton.style.transform = `scale(${state.yesScale})`;
 

@@ -21,6 +21,21 @@ body {
     transition: opacity 1s ease-in-out, transform 0.3s ease;
     position: relative;
 }
+
+#coffee-buttons {
+    position: relative;
+    z-index: 9999;
+}
+
+#coffee-buttons button {
+    pointer-events: auto;
+}
+
+#coffee-message {
+    position: relative;
+    z-index: 1;
+}
+
 .question-container.fade-in {
     opacity: 1;
 }
@@ -92,7 +107,7 @@ body.romantic-suspense {
             #080608 100%
         );
 
-    color: #fff;
+    color: #000000;
 
     transition:
         background 1.5s ease,
@@ -194,3 +209,4 @@ body.romantic-suspense::before {
 
     z-index: 0;
 }
+
