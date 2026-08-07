@@ -325,44 +325,70 @@ async function triggerSuspense() {
 
     container.classList.add("fade-out");
 
-    await wait(600);
+    await wait(700);
 
     container.style.display = "none";
 
-    body.style.backgroundColor = "#000";
+    // Romantic suspense background
+    body.classList.add("romantic-suspense");
 
-    suspenseMessage.style.opacity = "1";
+    suspenseMessage.style.opacity = "0";
+    suspenseMessage.style.display = "block";
 
-    typingIndicator.style.display = "inline";
+    // First message
+    await showSuspenseMessage("Thank you... ❤️", 1800);
 
-    suspenseMessage.textContent = "Thank you...";
+    // Second message
+    await showSuspenseMessage(
+        "You've answered every question.",
+        2200
+    );
 
-    await wait(1800);
+    // Third message
+    await showSuspenseMessage(
+        "There's just...",
+        1600
+    );
 
-    suspenseMessage.textContent =
-        "You've answered every question.";
+    await showSuspenseMessage(
+        "one last thing.",
+        2200
+    );
 
-    await wait(1800);
+    // Final build-up
+    await showSuspenseMessage(
+        "I've been wanting to ask you something...",
+        2800
+    );
 
-    suspenseMessage.textContent =
-        "There's just one last thing...";
+    // Hide suspense
+    suspenseMessage.style.opacity = "0";
 
-    await wait(1800);
+    await wait(900);
 
-    suspenseMessage.textContent =
-        "I've wanted to ask you for quite a while.";
+    body.classList.remove("romantic-suspense");
 
-    await wait(2200);
+    showCoffeeQuestion();
+}
 
-    typingIndicator.style.display = "none";
+async function showSuspenseMessage(message, duration) {
 
     suspenseMessage.style.opacity = "0";
 
-    await wait(600);
+    await wait(500);
 
-    showCoffeeQuestion();
+    suspenseMessage.textContent = message;
 
+    suspenseMessage.style.opacity = "1";
+
+    await wait(duration);
+
+    suspenseMessage.style.opacity = "0";
+
+    await wait(500);
 }
+
+
 
 function showCoffeeQuestion() {
 
@@ -401,14 +427,140 @@ function showCoffeeQuestion() {
 function setupCoffeeButtons() {
 
     yesButton = document.getElementById("yes-button");
-
     noButton = document.getElementById("no-button");
-
     coffeeMessage = document.getElementById("coffee-message");
 
     yesButton.addEventListener("click", handleYes);
 
     noButton.addEventListener("click", handleNoClick);
+
+    // Desktop: watch the cursor
+    document.addEventListener("mousemove", handleCursorMove);
+
+}
+
+function handleCursorMove(event) {
+
+    if (!noButton) return;
+
+    if (state.canCatchNo) return;
+
+    const buttonRect = noButton.getBoundingClientRect();
+
+    const buttonCenterX =
+        buttonRect.left + buttonRect.width / 2;
+
+    const buttonCenterY =
+        buttonRect.top + buttonRect.height / 2;
+
+    const distanceX =
+        event.clientX - buttonCenterX;
+
+    const distanceY =
+        event.clientY - buttonCenterY;
+
+    const distance =
+        Math.sqrt(
+            distanceX * distanceX +
+            distanceY * distanceY
+        );
+
+    const escapeDistance = 120;
+
+    if (distance < escapeDistance) {
+
+        dodgeFromCursor(
+            event.clientX,
+            event.clientY
+        );
+
+    }
+
+}
+
+function dodgeFromCursor(cursorX, cursorY) {
+
+    if (state.canCatchNo) return;
+
+    state.attempts++;
+
+    growYesButton();
+
+    updateCoffeeMessage();
+
+    const buttonRect =
+        noButton.getBoundingClientRect();
+
+    const buttonCenterX =
+        buttonRect.left + buttonRect.width / 2;
+
+    const buttonCenterY =
+        buttonRect.top + buttonRect.height / 2;
+
+    // Direction AWAY from the cursor
+    let directionX =
+        buttonCenterX - cursorX;
+
+    let directionY =
+        buttonCenterY - cursorY;
+
+    const length =
+        Math.sqrt(
+            directionX * directionX +
+            directionY * directionY
+        );
+
+    // Prevent division by zero
+    if (length === 0) {
+
+        directionX = 1;
+        directionY = 0;
+
+    } else {
+
+        directionX /= length;
+        directionY /= length;
+
+    }
+
+    const moveDistance = 180;
+
+    let newX =
+        buttonRect.left +
+        directionX * moveDistance;
+
+    let newY =
+        buttonRect.top +
+        directionY * moveDistance;
+
+    const padding = 20;
+
+    const maxX =
+        window.innerWidth -
+        noButton.offsetWidth -
+        padding;
+
+    const maxY =
+        window.innerHeight -
+        noButton.offsetHeight -
+        padding;
+
+    // Keep it inside the screen
+    newX = Math.max(
+        padding,
+        Math.min(newX, maxX)
+    );
+
+    newY = Math.max(
+        padding,
+        Math.min(newY, maxY)
+    );
+
+    noButton.style.position = "fixed";
+
+    noButton.style.left = `${newX}px`;
+
+    noButton.style.top = `${newY}px`;
 
 }
 
@@ -454,8 +606,6 @@ function handleNoClick(event) {
 
     updateCoffeeMessage();
 
-    moveNoButton();
-
     if (state.attempts >= state.maxAttempts) {
 
         state.canCatchNo = true;
@@ -495,7 +645,7 @@ function moveNoButton() {
 
 function growYesButton() {
 
-    state.yesScale += 0.04;
+    state.yesScale += 0.001;
 
     yesButton.style.transform = `scale(${state.yesScale})`;
 
