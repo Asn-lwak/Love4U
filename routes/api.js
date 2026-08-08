@@ -60,4 +60,39 @@ router.post("/responses", (req, res) => {
 
 });
 
+// Update coffee-date decision
+router.patch("/responses/:id/coffee", (req, res) => {
+
+    const { id } = req.params;
+    const { accepted } = req.body;
+
+    if (!["yes", "no"].includes(accepted)) {
+        return res.status(400).json({
+            success: false,
+            message: "Invalid coffee response."
+        });
+    }
+
+    const statement = db.prepare(`
+        UPDATE responses
+        SET accepted = ?
+        WHERE id = ?
+    `);
+
+    const result = statement.run(accepted, id);
+
+    if (result.changes === 0) {
+        return res.status(404).json({
+            success: false,
+            message: "Response not found."
+        });
+    }
+
+    res.json({
+        success: true,
+        message: "Coffee response saved ❤️"
+    });
+
+});
+
 module.exports = router;

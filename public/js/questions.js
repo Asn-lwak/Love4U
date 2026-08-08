@@ -92,6 +92,8 @@ const state = {
 
     canCatchNo: false,
 
+    responseId: null,
+
     coffeeAtmosphere: null
 
 };
@@ -273,6 +275,12 @@ async function nextQuestion() {
 
     if (state.currentQuestion >= questions.length) {
 
+        const saved = await submitResponses();
+
+        if (!saved) {
+            return;
+        }
+
         triggerSuspense();
 
         return;
@@ -299,13 +307,30 @@ async function submitResponses() {
             throw new Error(result.message);
         }
 
-        console.log("❤️ Responses saved!", state.answers);
+        state.responseId = result.responseId;
+
+        console.log(
+            "❤️ Responses saved!",
+            state.answers
+        );
+
+        console.log(
+            "🆔 Response ID:",
+            state.responseId
+        );
+
+        return true;
 
     } catch (error) {
-        console.error(error);
-        alert("Something went wrong while saving your answers.");
-    }
 
+        console.error(error);
+
+        alert(
+            "Something went wrong while saving your answers."
+        );
+
+        return false;
+    }
 }
 
 function wait(ms) {
