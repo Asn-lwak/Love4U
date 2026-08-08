@@ -90,7 +90,9 @@ const state = {
 
     coffeeStep: 0,
 
-    canCatchNo: false
+    canCatchNo: false,
+
+    coffeeAtmosphere: null
 
 };
 
@@ -383,51 +385,53 @@ async function showSuspenseMessage(message, duration) {
 
 function createCoffeeAtmosphere() {
 
-    // Floating hearts
-    for (let i = 0; i < 10; i++) {
-
-        const heart = document.createElement("div");
-
-        heart.className = "coffee-heart";
-
-        heart.textContent = "♥";
-
-        heart.style.left =
-            `${Math.random() * 100}vw`;
-
-        heart.style.animationDelay =
-            `${Math.random() * 5}s`;
-
-        document.body.appendChild(heart);
-
-        setTimeout(() => {
-            heart.remove();
-        }, 8000);
-    }
-
-
-    // Tiny sparkles
-    for (let i = 0; i < 14; i++) {
+    // Create a sparkle every ~500ms
+    const sparkleInterval = setInterval(() => {
 
         const sparkle = document.createElement("div");
 
         sparkle.className = "coffee-sparkle";
 
-        sparkle.style.left =
-            `${Math.random() * 100}vw`;
+        sparkle.style.left = `${Math.random() * 100}vw`;
+        sparkle.style.top = `${Math.random() * 100}vh`;
 
-        sparkle.style.top =
-            `${Math.random() * 100}vh`;
-
-        sparkle.style.animationDelay =
-            `${Math.random() * 4}s`;
+        sparkle.style.animationDelay = "0s";
 
         document.body.appendChild(sparkle);
 
         setTimeout(() => {
             sparkle.remove();
-        }, 6000);
-    }
+        }, 5000);
+
+    }, 500);
+
+
+    // Create an occasional floating heart
+    const heartInterval = setInterval(() => {
+
+        const heart = document.createElement("div");
+
+        heart.className = "coffee-heart";
+        heart.textContent = "♥";
+
+        heart.style.left = `${Math.random() * 100}vw`;
+
+        heart.style.animationDelay = "0s";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 7000);
+
+    }, 2200);
+
+
+    // Keep the intervals available so we can stop them later
+    state.coffeeAtmosphere = {
+        sparkleInterval,
+        heartInterval
+    };
 }
 
 function showCoffeeQuestion() {
