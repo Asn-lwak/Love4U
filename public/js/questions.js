@@ -273,16 +273,12 @@ async function nextQuestion() {
 
     if (state.currentQuestion >= questions.length) {
 
-        await submitResponses();
-
         triggerSuspense();
 
         return;
-
     }
 
     showQuestion();
-
 }
 
 async function submitResponses() {
@@ -626,19 +622,22 @@ function updateCoffeeMessage() {
 
 }
 
-function handleYes() {
+async function handleYes() {
+
+    state.answers.accepted = "yes";
+
+    await submitResponses();
 
     yesButton.textContent = "YAY!! ❤️";
 
     setTimeout(() => {
 
-        window.location.href = "date_plan.html";
 
     }, 1000);
 
 }
 
-function handleNoClick(event) {
+async function handleNoClick(event) {
 
     if (state.canCatchNo) {
 
@@ -665,8 +664,11 @@ function handleNoClick(event) {
         noButton.style.position = "static";
 
         noButton.style.left = "";
-
         noButton.style.top = "";
+
+        state.answers.accepted = "no";
+
+        await submitResponses();
 
     }
 

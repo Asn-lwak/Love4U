@@ -34,12 +34,13 @@ router.post("/responses", (req, res) => {
             favorite_dessert,
             date_type,
             favorite_activity,
-            ideal_time
+            ideal_time,
+            accepted
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     `);
 
-    statement.run(
+    const result = statement.run(
         name,
         age,
         favorite_color,
@@ -47,11 +48,13 @@ router.post("/responses", (req, res) => {
         favorite_dessert,
         date_type,
         favorite_activity,
-        ideal_time
+        ideal_time,
+        "pending"
     );
 
     res.json({
         success: true,
+        responseId: result.lastInsertRowid,
         message: "Responses saved successfully ❤️"
     });
 
