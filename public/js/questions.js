@@ -416,13 +416,20 @@ function createCoffeeAtmosphere() {
 
         heart.style.left = `${Math.random() * 100}vw`;
 
-        heart.style.animationDelay = "0s";
+        const size = 12 + Math.random() * 16;
+        heart.style.fontSize = `${size}px`;
+
+        const opacity = 0.35 + Math.random() * 0.4;
+        heart.style.setProperty("--heart-opacity", opacity);
+
+        const duration = 5 + Math.random() * 4;
+        heart.style.animationDuration = `${duration}s`;
 
         document.body.appendChild(heart);
 
         setTimeout(() => {
             heart.remove();
-        }, 7000);
+        }, (duration + 1) * 1000);
 
     }, 2200);
 
