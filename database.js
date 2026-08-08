@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS responses (
     favorite_color TEXT,
     favorite_food TEXT,
     favorite_dessert TEXT,
+    date_type TEXT,
     favorite_activity TEXT,
     free_activity TEXT,
     ideal_time TEXT,

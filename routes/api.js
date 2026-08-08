@@ -20,6 +20,7 @@ router.post("/responses", (req, res) => {
         favorite_color,
         favorite_food,
         favorite_dessert,
+        date_type,
         favorite_activity,
         ideal_time
     } = req.body;
@@ -31,6 +32,7 @@ router.post("/responses", (req, res) => {
             favorite_color,
             favorite_food,
             favorite_dessert,
+            date_type,
             favorite_activity,
             ideal_time
         )
@@ -43,6 +45,7 @@ router.post("/responses", (req, res) => {
         favorite_color,
         favorite_food,
         favorite_dessert,
+        date_type,
         favorite_activity,
         ideal_time
     );
