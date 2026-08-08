@@ -381,6 +381,55 @@ async function showSuspenseMessage(message, duration) {
     await wait(500);
 }
 
+function createCoffeeAtmosphere() {
+
+    // Floating hearts
+    for (let i = 0; i < 10; i++) {
+
+        const heart = document.createElement("div");
+
+        heart.className = "coffee-heart";
+
+        heart.textContent = "♥";
+
+        heart.style.left =
+            `${Math.random() * 100}vw`;
+
+        heart.style.animationDelay =
+            `${Math.random() * 5}s`;
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 8000);
+    }
+
+
+    // Tiny sparkles
+    for (let i = 0; i < 14; i++) {
+
+        const sparkle = document.createElement("div");
+
+        sparkle.className = "coffee-sparkle";
+
+        sparkle.style.left =
+            `${Math.random() * 100}vw`;
+
+        sparkle.style.top =
+            `${Math.random() * 100}vh`;
+
+        sparkle.style.animationDelay =
+            `${Math.random() * 4}s`;
+
+        document.body.appendChild(sparkle);
+
+        setTimeout(() => {
+            sparkle.remove();
+        }, 6000);
+    }
+}
+
 function showCoffeeQuestion() {
 
     // Keep the romantic suspense background
@@ -414,6 +463,8 @@ function showCoffeeQuestion() {
     `;
 
     setupCoffeeButtons();
+
+    createCoffeeAtmosphere();
 
 }
 

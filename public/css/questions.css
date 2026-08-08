@@ -433,3 +433,174 @@ body.romantic-suspense::before {
     z-index: 0;
 }
 
+/* =================================
+   ✨ Romantic Coffee Atmosphere
+   ================================= */
+
+#question-container.coffee-mode {
+    position: relative;
+    overflow: visible;
+
+    animation: coffeeCardGlow 4s ease-in-out infinite;
+}
+
+/* Soft glow around the coffee card */
+
+@keyframes coffeeCardGlow {
+    0% {
+        box-shadow:
+            0 25px 70px rgba(0, 0, 0, 0.5),
+            0 0 35px rgba(255, 120, 160, 0.06);
+    }
+
+    50% {
+        box-shadow:
+            0 25px 70px rgba(0, 0, 0, 0.5),
+            0 0 55px rgba(255, 120, 160, 0.14);
+    }
+
+    100% {
+        box-shadow:
+            0 25px 70px rgba(0, 0, 0, 0.5),
+            0 0 35px rgba(255, 120, 160, 0.06);
+    }
+}
+
+
+/* =================================
+   💕 Floating Hearts
+   ================================= */
+
+.coffee-heart {
+    position: fixed;
+
+    bottom: -30px;
+
+    font-size: 16px;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    z-index: 0;
+
+    animation: coffeeHeartFloat 7s linear forwards;
+}
+
+@keyframes coffeeHeartFloat {
+
+    0% {
+        transform:
+            translateY(0)
+            translateX(0)
+            scale(0.7);
+
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 0.35;
+    }
+
+    50% {
+        opacity: 0.25;
+    }
+
+    100% {
+        transform:
+            translateY(-110vh)
+            translateX(35px)
+            scale(1.1);
+
+        opacity: 0;
+    }
+}
+
+
+/* =================================
+   ✨ Tiny Romantic Particles
+   ================================= */
+
+.coffee-sparkle {
+    position: fixed;
+
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 190, 210, 0.7);
+
+    box-shadow:
+        0 0 8px rgba(255, 160, 190, 0.7),
+        0 0 16px rgba(255, 120, 160, 0.35);
+
+    pointer-events: none;
+
+    z-index: 0;
+
+    animation: sparkleFloat 5s ease-in-out forwards;
+}
+
+@keyframes sparkleFloat {
+
+    0% {
+        opacity: 0;
+        transform: translateY(10px) scale(0.5);
+    }
+
+    30% {
+        opacity: 0.7;
+    }
+
+    70% {
+        opacity: 0.45;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-80px) scale(1);
+    }
+}
+
+
+/* =================================
+   ❤️ Gentle YES Pulse
+   ================================= */
+
+#yes-button {
+    animation: yesSoftPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes yesSoftPulse {
+
+    0%,
+    100% {
+        box-shadow:
+            0 8px 25px rgba(255, 105, 145, 0.28);
+    }
+
+    50% {
+        box-shadow:
+            0 8px 30px rgba(255, 105, 145, 0.48),
+            0 0 18px rgba(255, 150, 180, 0.18);
+    }
+}
+
+
+/* =================================
+   📱 Mobile
+   ================================= */
+
+@media (max-width: 600px) {
+
+    .coffee-heart {
+        font-size: 13px;
+    }
+
+    .coffee-sparkle {
+        width: 3px;
+        height: 3px;
+    }
+
+}
