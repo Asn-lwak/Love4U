@@ -390,7 +390,7 @@ function showCoffeeQuestion() {
 
     container.classList.remove("fade-out");
     container.classList.add("fade-in");
-    container.classList.remove("coffee-mode");
+    container.classList.add("coffee-mode");
 
     questionText.textContent =
         "Will you go on a coffee date with me? ☕";

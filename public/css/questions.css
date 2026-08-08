@@ -31,10 +31,6 @@ body {
     pointer-events: auto;
 }
 
-#coffee-message {
-    position: relative;
-    z-index: 1;
-}
 
 .question-container.fade-in {
     opacity: 1;
@@ -193,154 +189,197 @@ body.romantic-suspense #suspense-message {
    Coffee Question Only
 ================================ */
 
+#question-container.coffee-mode {
+    background: linear-gradient(
+        145deg,
+        rgba(55, 30, 45, 0.88),
+        rgba(25, 16, 25, 0.92)
+    );
+
+    border: 1px solid rgba(255, 190, 210, 0.18);
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.5),
+        0 0 45px rgba(255, 100, 150, 0.08);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border-radius: 24px;
+}
+
 #question-container.coffee-mode #question-text {
-    position: relative;
-    z-index: 2;
+    color: #fff1f5;
 
-    max-width: 800px;
-
-    margin: 0 auto;
-
-    text-align: center;
-
-    font-size: clamp(1.5rem, 4vw, 2.3rem);
-
-    line-height: 1.4;
-
-    letter-spacing: 0.02em;
+    text-shadow:
+        0 0 18px rgba(255, 160, 190, 0.18);
 }
 
 
-/* -----------------------------
-   Coffee Buttons
------------------------------ */
+/* =================================
+   Romantic Coffee Buttons
+================================= */
 
 #coffee-buttons {
-    position: relative;
-
-    z-index: 9999;
+    position: static;
 
     display: flex;
-
     justify-content: center;
-
     align-items: center;
 
-    gap: 28px;
+    gap: 22px;
 
     min-height: 90px;
 
-    margin-top: 28px;
+    margin-top: 25px;
 }
 
-
-/* -----------------------------
-   YES Button
------------------------------ */
-
-#yes-button {
-    position: relative;
-
-    z-index: 10000;
-
-    border: none;
+#coffee-buttons button {
+    pointer-events: auto;
 
     border-radius: 999px;
 
-    padding: 14px 30px;
-
-    background: rgba(255, 255, 255, 0.12);
-
-    color: #fff;
+    font-family: inherit;
 
     font-size: 1rem;
-
     font-weight: 600;
 
-    letter-spacing: 0.04em;
+    letter-spacing: 0.03em;
 
     cursor: pointer;
 
-    box-shadow:
-        0 0 15px rgba(255, 150, 190, 0.2);
-
     transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease,
-        background 0.25s ease;
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease;
+}
+
+#yes-button {
+    position: relative;
+    z-index: 10000;
+
+    padding: 14px 32px;
+
+    border: 1px solid rgba(255, 120, 160, 0.45);
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff8fab,
+            #ff6f91
+        );
+
+    box-shadow:
+        0 8px 25px rgba(255, 105, 145, 0.28),
+        inset 0 1px 1px rgba(255,255,255,0.35);
+
+    pointer-events: auto;
 }
 
 #yes-button:hover {
 
-    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px) scale(1.03);
 
     box-shadow:
-        0 0 25px rgba(255, 150, 190, 0.4);
+        0 12px 30px rgba(255, 105, 145, 0.4),
+        0 0 18px rgba(255, 150, 180, 0.25);
 }
 
 
-/* -----------------------------
-   NO Button
------------------------------ */
+/* =========================
+   NO 🥺
+========================= */
 
 #no-button {
     position: relative;
-
     z-index: 9999;
 
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 14px 32px;
 
-    border-radius: 999px;
+    border: 1px solid rgba(255, 150, 180, 0.55);
 
-    padding: 14px 30px;
+    color: #c85b78;
 
-    background: rgba(255, 255, 255, 0.06);
+    background:
+        linear-gradient(
+            135deg,
+            #fff7fa,
+            #ffe9f0
+        );
 
-    color: rgba(255, 255, 255, 0.8);
+    box-shadow:
+        0 7px 20px rgba(150, 70, 100, 0.12);
 
-    font-size: 1rem;
+    pointer-events: auto;
+}
 
-    cursor: pointer;
+#no-button:hover {
 
-    transition:
-        left 0.18s ease,
-        top 0.18s ease,
-        transform 0.2s ease,
-        background 0.25s ease;
+    background:
+        linear-gradient(
+            135deg,
+            #fff1f5,
+            #ffdce7
+        );
+
+    box-shadow:
+        0 10px 25px rgba(255, 120, 160, 0.2);
 }
 
 
-/* -----------------------------
-   Playful Message
------------------------------ */
+/* =========================
+   Playful message
+========================= */
 
 #coffee-message {
-
     position: relative;
-
     z-index: 1;
 
-    min-height: 32px;
-
-    margin-top: 20px;
-
-    padding: 0 20px;
+    min-height: 30px;
+    margin-top: 18px;
 
     text-align: center;
 
-    color: rgba(255, 220, 230, 0.9);
+    color: #f3a7bb;
 
-    font-size: 1rem;
-
+    font-size: 0.95rem;
     font-style: italic;
 
     letter-spacing: 0.02em;
 
-    opacity: 0.9;
+    text-shadow:
+        0 0 12px rgba(243, 167, 187, 0.18);
 
     transition:
         opacity 0.4s ease,
         transform 0.4s ease;
+}
+
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 600px) {
+
+    #coffee-buttons {
+
+        gap: 12px;
+
+        margin-top: 20px;
+
+    }
+
+    #coffee-buttons button {
+
+        padding: 12px 24px;
+
+        font-size: 0.9rem;
+
+    }
+
 }
 
 
@@ -364,37 +403,6 @@ body.romantic-suspense #suspense-message {
 
 }
 
-
-/* -----------------------------
-   Mobile
------------------------------ */
-
-@media (max-width: 600px) {
-
-    #coffee-buttons {
-
-        gap: 14px;
-
-        min-height: 80px;
-
-        margin-top: 22px;
-    }
-
-    #yes-button,
-    #no-button {
-
-        padding: 12px 22px;
-
-        font-size: 0.95rem;
-    }
-
-    #coffee-message {
-
-        font-size: 0.9rem;
-
-    }
-
-}
 
 @keyframes romanticFloat {
 
