@@ -100,17 +100,89 @@
     </div>
 
     <script>
-        document.getElementById('date-plan-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const date = document.getElementById('date').value;
-            const time = document.getElementById('time').value;
-            const place = document.getElementById('place').value;
-            const location = document.getElementById('location').value;
-            const notes = document.getElementById('notes').value;
 
-            localStorage.setItem('dateDetails', JSON.stringify({ date, time, place, location, notes }));
-            window.location.href = 'final_page.html';
-        });
+        const params = new URLSearchParams(window.location.search);
+        const responseId = params.get("id");
+
+        if (!responseId) {
+
+            alert("Something went wrong — response ID is missing.");
+
+        }
+
+        document
+            .getElementById("date-plan-form")
+            .addEventListener("submit", async function(event) {
+
+                event.preventDefault();
+
+                const date =
+                    document.getElementById("date").value;
+
+                const time =
+                    document.getElementById("time").value;
+
+                const place =
+                    document.getElementById("place").value;
+
+                const location =
+                    document.getElementById("location").value;
+
+                const notes =
+                    document.getElementById("notes").value;
+
+                try {
+
+                    const response = await fetch(
+                        `/api/responses/${responseId}/date`,
+                        {
+                            method: "PATCH",
+
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                date,
+                                time,
+                                place,
+                                location,
+                                notes
+                            })
+                        }
+                    );
+
+                    const result = await response.json();
+
+                    if (!result.success) {
+                        throw new Error(result.message);
+                    }
+
+                    console.log(
+                        "💕 Date plan saved!",
+                        {
+                            date,
+                            time,
+                            place,
+                            location,
+                            notes
+                        }
+                    );
+
+                    window.location.href = "final_page.html";
+
+                } catch (error) {
+
+                    console.error(error);
+
+                    alert(
+                        "Something went wrong while saving your date plan."
+                    );
+
+                }
+
+            });
+
     </script>
 </body>
 </html>
