@@ -333,6 +333,57 @@ async function submitResponses() {
     }
 }
 
+async function saveCoffeeDecision(decision) {
+
+    if (!state.responseId) {
+        console.error("❌ No response ID available.");
+        return false;
+    }
+
+    try {
+
+        const response = await fetch(
+            `/api/responses/${state.responseId}/coffee`,
+            {
+                method: "PATCH",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    accepted: decision
+                })
+            }
+        );
+
+        const result = await response.json();
+
+        if (!result.success) {
+            throw new Error(result.message);
+        }
+
+        console.log(
+            "☕ Coffee response saved:",
+            decision,
+            "ID:",
+            state.responseId
+        );
+
+        return true;
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Something went wrong while saving the coffee response."
+        );
+
+        return false;
+    }
+}
+
 function wait(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -649,15 +700,18 @@ function updateCoffeeMessage() {
 
 async function handleYes() {
 
-    state.answers.accepted = "yes";
+    const saved = await saveCoffeeDecision("yes");
 
-    await submitResponses();
+    if (!saved) {
+        return;
+    }
 
     yesButton.textContent = "YAY!! ❤️";
 
     setTimeout(() => {
         window.location.href =
             `date_plan.html?id=${state.responseId}`;
+        
     }, 1000);
 
 }
@@ -691,9 +745,11 @@ async function handleNoClick(event) {
         noButton.style.left = "";
         noButton.style.top = "";
 
-        state.answers.accepted = "no";
+        const saved = await saveCoffeeDecision("no");
 
-        await submitResponses();
+        if (!saved) {
+            return;
+        }
 
     }
 
