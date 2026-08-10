@@ -77,48 +77,139 @@
         }
     </style>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const dateDetails = JSON.parse(localStorage.getItem('dateDetails'));
-            if (dateDetails) {
-                const { date, time, place, location } = dateDetails;
-                // Format date and time for display
-                const dateObj = new Date(date);
-                const formattedDate = dateObj.toLocaleDateString();
-                const [hours, minutes] = time.split(':');
-                const formattedTime = `${hours}:${minutes}`;
 
-                document.getElementById('date-message').textContent = 
-                    `See you on ${formattedDate}, ${formattedTime} at ${location} (${place})!`;
-            } else {
-                document.getElementById('date-message').textContent = `See you soon! Details TBD.`;
+        document.addEventListener("DOMContentLoaded", async () => {
+
+            const params =
+                new URLSearchParams(window.location.search);
+
+            const responseId =
+                params.get("id");
+
+            const dateMessage =
+                document.getElementById("date-message");
+
+            if (!responseId) {
+
+                dateMessage.textContent =
+                    "Your date details couldn't be found. 💔";
+
+                return;
             }
 
-            // A quick flourish of floating hearts and confetti for maximum charm, Sir!
+            try {
+
+                const response = await fetch(
+                    `/api/responses/${responseId}`
+                );
+
+                const result = await response.json();
+
+                if (!result.success) {
+                    throw new Error(result.message);
+                }
+
+                const plan = result.response;
+
+                const dateObj =
+                    new Date(`${plan.date}T00:00:00`);
+
+                const formattedDate =
+                    dateObj.toLocaleDateString(
+                        undefined,
+                        {
+                            weekday: "long",
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric"
+                        }
+                    );
+
+                const [hours, minutes] =
+                    plan.time.split(":");
+
+                const timeObj =
+                    new Date();
+
+                timeObj.setHours(
+                    Number(hours),
+                    Number(minutes)
+                );
+
+                const formattedTime =
+                    timeObj.toLocaleTimeString(
+                        undefined,
+                        {
+                            hour: "numeric",
+                            minute: "2-digit"
+                        }
+                    );
+
+                dateMessage.innerHTML = `
+                    <strong>${formattedDate}</strong><br>
+                    ${formattedTime}<br>
+                    <span>${plan.place}</span><br>
+                    <small>${plan.location}</small>
+                `;
+
+            } catch (error) {
+
+                console.error(
+                    "Failed to load date plan:",
+                    error
+                );
+
+                dateMessage.textContent =
+                    "Something went wrong loading your date. 💔";
+            }
+
             createConfetti();
             createHearts();
+
         });
 
+
         function createConfetti() {
+
             for (let i = 0; i < 50; i++) {
-                const confetti = document.createElement('div');
-                confetti.classList.add('confetti');
-                confetti.style.left = `${Math.random() * 100}vw`;
-                confetti.style.animationDelay = `${Math.random() * 5}s`;
-                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+
+                const confetti =
+                    document.createElement("div");
+
+                confetti.classList.add("confetti");
+
+                confetti.style.left =
+                    `${Math.random() * 100}vw`;
+
+                confetti.style.animationDelay =
+                    `${Math.random() * 5}s`;
+
                 document.body.appendChild(confetti);
             }
         }
 
+
         function createHearts() {
+
             for (let i = 0; i < 20; i++) {
-                const heart = document.createElement('div');
-                heart.classList.add('heart');
-                heart.textContent = '❤️';
-                heart.style.left = `${Math.random() * 100}vw`;
-                heart.style.animationDelay = `${Math.random() * 6}s`;
+
+                const heart =
+                    document.createElement("div");
+
+                heart.classList.add("heart");
+
+                heart.textContent = "♥";
+
+                heart.style.left =
+                    `${Math.random() * 100}vw`;
+
+                heart.style.animationDelay =
+                    `${Math.random() * 6}s`;
+
                 document.body.appendChild(heart);
             }
         }
+
     </script>
 </head>
 <body>
