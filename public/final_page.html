@@ -3,79 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Excitement!</title>
+
+    <title>Official Date!</title>
+
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Specific styles for final page */
+    <link rel="stylesheet" href="css/final.css">
 
-        body { 
-            background-color: #f4f4f9; 
-            color: #333; 
-            font-family: 'Arial',
-            Helvetica, sans-serif; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh;
-            margin: 0; 
-            line-height: 1.6; 
-        }
-        .container {
-            text-align: center;
-            padding: 40px;
-            border:1px solid #ccc;
-            border-radius: 10px;
-            background-color: #ffffff; 
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 80%;
-            max-width: 600px;
-        }
-        h1 {
-            color: #2c3e50; 
-        }
-        p {
-            color: #7f8c8d; 
-        }
-        .final-message {
-            margin-top: 20px;
-            font-size: 1.5em;
-            color: orange;
-        }
-        #date-message {
-            font-size: 1.2em;
-            margin-top: 10px;
-            display: block;
-        }
-
-        /* Confetti and Hearts effects */
-        .confetti {
-            position: fixed;
-            top: 0;
-            width: 10px;
-            height: 10px;
-            background-color: #ff0;
-            animation: confetti-fall 5s infinite;
-            opacity: 0;
-        }
-        @keyframes confetti-fall {
-            0% { top: -10%; opacity: 1; transform: translateX(0) rotate(0deg); }
-            100% { top: 110%; opacity: 0.5; transform: translateX(100px) rotate(720deg); }
-        }
-
-        .heart {
-            position: fixed;
-            bottom: -10%;
-            font-size: 2em;
-            color: #e91e63;
-            animation: float-up 6s infinite;
-            opacity: 0;
-        }
-        @keyframes float-up {
-            0% { bottom: -10%; opacity: 0; transform: translateX(0); }
-            50% { opacity: 1; }
-            100% { bottom: 110%; opacity: 0; transform: translateX(50px); }
-        }
-    </style>
     <script>
 
         document.addEventListener("DOMContentLoaded", async () => {
@@ -163,30 +96,10 @@
                     "Something went wrong loading your date. 💔";
             }
 
-            createConfetti();
             createHearts();
-
+            createSparkles();
+            
         });
-
-
-        function createConfetti() {
-
-            for (let i = 0; i < 50; i++) {
-
-                const confetti =
-                    document.createElement("div");
-
-                confetti.classList.add("confetti");
-
-                confetti.style.left =
-                    `${Math.random() * 100}vw`;
-
-                confetti.style.animationDelay =
-                    `${Math.random() * 5}s`;
-
-                document.body.appendChild(confetti);
-            }
-        }
 
 
         function createHearts() {
@@ -207,6 +120,41 @@
                     `${Math.random() * 6}s`;
 
                 document.body.appendChild(heart);
+            }
+        }
+
+        function createSparkles() {
+
+            const sparkleSymbols = ["✦", "✧", "·"];
+
+            for (let i = 0; i < 28; i++) {
+
+                const sparkle =
+                    document.createElement("div");
+
+                sparkle.classList.add("sparkle");
+
+                sparkle.textContent =
+                    sparkleSymbols[
+                        Math.floor(
+                            Math.random() *
+                            sparkleSymbols.length
+                        )
+                    ];
+
+                sparkle.style.left =
+                    `${Math.random() * 100}vw`;
+
+                sparkle.style.fontSize =
+                    `${7 + Math.random() * 9}px`;
+
+                sparkle.style.animationDelay =
+                    `${Math.random() * 6}s`;
+
+                sparkle.style.animationDuration =
+                    `${5 + Math.random() * 4}s`;
+
+                document.body.appendChild(sparkle);
             }
         }
 

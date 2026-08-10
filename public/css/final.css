@@ -1,0 +1,381 @@
+/* =========================================
+   LOVE4U — FINAL PAGE
+   ========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 24px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+
+    font-family: Arial, sans-serif;
+    color: #fff;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #3a1f2b 0%,
+            #1b1118 45%,
+            #080608 100%
+        );
+
+    position: relative;
+}
+
+
+/* =========================================
+   BACKGROUND GLOW
+   ========================================= */
+
+body::before {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 20% 25%,
+            rgba(255, 150, 190, 0.10),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 80% 75%,
+            rgba(180, 110, 220, 0.08),
+            transparent 30%
+        );
+
+    z-index: 0;
+}
+
+
+/* =========================================
+   FINAL CARD
+   ========================================= */
+
+.container {
+    position: relative;
+    z-index: 5;
+
+    width: min(92vw, 620px);
+
+    padding: 45px 35px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(61, 32, 49, 0.82),
+            rgba(22, 14, 22, 0.92)
+        );
+
+    border:
+        1px solid rgba(255, 190, 215, 0.18);
+
+    border-radius: 28px;
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.55),
+        0 0 50px rgba(255, 100, 160, 0.08);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    animation: cardAppear 1s ease both;
+}
+
+@keyframes cardAppear {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* =========================================
+   HEART ABOVE TITLE
+   ========================================= */
+
+.container::before {
+    content: "♥";
+
+    display: block;
+
+    margin-bottom: 15px;
+
+    color: #ff9fbd;
+
+    font-size: 2rem;
+
+    text-shadow:
+        0 0 12px rgba(255, 130, 170, 0.45),
+        0 0 30px rgba(255, 100, 160, 0.2);
+
+    animation: heartPulse 2.8s ease-in-out infinite;
+}
+
+@keyframes heartPulse {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.12);
+    }
+}
+
+
+/* =========================================
+   TITLE
+   ========================================= */
+
+h1 {
+    margin: 0;
+
+    color: #fff4f7;
+
+    font-size: clamp(2rem, 7vw, 3.2rem);
+
+    font-weight: 500;
+
+    text-shadow:
+        0 0 12px rgba(255, 180, 205, 0.2),
+        0 0 35px rgba(255, 120, 170, 0.1);
+}
+
+
+/* =========================================
+   "SEE YOU ON"
+   ========================================= */
+
+.final-message {
+    margin: 14px 0 22px;
+
+    color: #e8b8c8;
+
+    font-size: clamp(1rem, 3vw, 1.2rem);
+
+    letter-spacing: 0.08em;
+}
+
+
+/* =========================================
+   DATE DETAILS
+   ========================================= */
+
+#date-message {
+    display: block;
+
+    padding: 23px 18px;
+
+    color: #fff2f6;
+
+    font-size: clamp(1rem, 3.5vw, 1.25rem);
+
+    line-height: 1.9;
+
+    background: rgba(255, 255, 255, 0.035);
+
+    border:
+        1px solid rgba(255, 190, 215, 0.12);
+
+    border-radius: 20px;
+
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.04);
+
+    animation: dateReveal 1s ease 0.3s both;
+}
+
+#date-message strong {
+    color: #ffb4ca;
+
+    font-weight: 600;
+
+    text-shadow:
+        0 0 12px rgba(255, 130, 170, 0.18);
+}
+
+#date-message span {
+    color: #ffd7e4;
+}
+
+#date-message small {
+    color: #cda9b8;
+}
+
+
+/* =========================================
+   BOTTOM DECORATION
+   ========================================= */
+
+.container::after {
+    content: "✦  ♥  ✦";
+
+    display: block;
+
+    margin-top: 27px;
+
+    color: #d98ba6;
+
+    font-size: 0.9rem;
+
+    letter-spacing: 0.5em;
+
+    opacity: 0.7;
+}
+
+
+/* =========================================
+   FLOATING HEARTS
+   ========================================= */
+
+.heart {
+    position: fixed;
+
+    bottom: -40px;
+
+    z-index: 2;
+
+    pointer-events: none;
+
+    color: #ff8eae;
+
+    opacity: 0;
+
+    text-shadow:
+        0 0 10px rgba(255, 110, 155, 0.35);
+
+    animation:
+        heartFloat 7s linear infinite;
+}
+
+@keyframes heartFloat {
+    0% {
+        transform:
+            translateY(20px)
+            scale(0.7);
+
+        opacity: 0;
+    }
+
+    12% {
+        opacity: 0.7;
+    }
+
+    50% {
+        transform:
+            translateY(-50vh)
+            scale(1);
+    }
+
+    85% {
+        opacity: 0.4;
+    }
+
+    100% {
+        transform:
+            translateY(-115vh)
+            scale(0.85);
+
+        opacity: 0;
+    }
+}
+
+
+/* =========================================
+   SPARKLES
+   ========================================= */
+
+.sparkle {
+    position: fixed;
+
+    bottom: -20px;
+
+    z-index: 1;
+
+    pointer-events: none;
+
+    color: rgba(255, 210, 225, 0.8);
+
+    opacity: 0;
+
+    text-shadow:
+        0 0 8px rgba(255, 180, 210, 0.7);
+
+    animation:
+        sparkleFloat 6s linear infinite;
+}
+
+@keyframes sparkleFloat {
+    0% {
+        transform:
+            translateY(20px)
+            scale(0.5);
+
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 0.8;
+    }
+
+    50% {
+        transform:
+            translateY(-50vh)
+            scale(1);
+    }
+
+    100% {
+        transform:
+            translateY(-115vh)
+            scale(0.3);
+
+        opacity: 0;
+    }
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 16px;
+    }
+
+    .container {
+        width: 94vw;
+
+        padding: 34px 20px;
+
+        border-radius: 23px;
+    }
+
+    #date-message {
+        padding: 20px 14px;
+
+        line-height: 1.75;
+    }
+
+}
