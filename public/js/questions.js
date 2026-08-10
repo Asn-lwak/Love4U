@@ -656,7 +656,8 @@ async function handleYes() {
     yesButton.textContent = "YAY!! ❤️";
 
     setTimeout(() => {
-        window.location.href = "date_plan.html";
+        window.location.href =
+            `date_plan.html?id=${state.responseId}`;
     }, 1000);
 
 }
