@@ -107,11 +107,9 @@ body::after {
 
     width: min(92vw, 620px);
 
-    max-height: calc(100vh - 40px);
-
     padding: 38px 34px;
 
-    overflow-y: auto;
+    overflow: visible;
 
     text-align: center;
 
@@ -243,6 +241,10 @@ body::after {
         fieldAppear 0.7s ease both;
 }
 
+.form-group option {
+    background-color: #2a1c25;
+}
+
 .form-group:nth-child(1) {
     animation-delay: 0.10s;
 }
@@ -295,6 +297,7 @@ body::after {
 
     letter-spacing: 0.02em;
 }
+
 
 
 /* =========================================
