@@ -1,0 +1,549 @@
+/* =========================================
+   LOVE4U — DATE PLANNER
+   ========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+}
+
+body {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 24px;
+
+    overflow-x: hidden;
+
+    font-family: Arial, sans-serif;
+
+    color: #fff;
+
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            #3a1f2b 0%,
+            #1b1118 45%,
+            #080608 100%
+        );
+
+    position: relative;
+}
+
+
+/* =========================================
+   BACKGROUND GLOW
+   ========================================= */
+
+body::before {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(255, 140, 180, 0.10),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 85% 75%,
+            rgba(180, 110, 220, 0.08),
+            transparent 30%
+        );
+
+    z-index: 0;
+}
+
+
+/* =========================================
+   FLOATING HEART BACKGROUND
+   ========================================= */
+
+body::after {
+    content: "♥";
+
+    position: fixed;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    font-size: clamp(9rem, 28vw, 18rem);
+
+    color: rgba(255, 120, 160, 0.035);
+
+    text-shadow:
+        0 0 45px rgba(255, 120, 160, 0.08),
+        0 0 100px rgba(255, 120, 160, 0.04);
+
+    pointer-events: none;
+
+    z-index: 0;
+}
+
+
+/* =========================================
+   MAIN PLANNER CARD
+   ========================================= */
+
+.plan-container {
+
+    position: relative;
+    z-index: 5;
+
+    width: min(92vw, 620px);
+
+    max-height: calc(100vh - 40px);
+
+    padding: 38px 34px;
+
+    overflow-y: auto;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(61, 32, 49, 0.86),
+            rgba(22, 14, 22, 0.94)
+        );
+
+    border:
+        1px solid rgba(255, 190, 215, 0.18);
+
+    border-radius: 28px;
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.55),
+        0 0 50px rgba(255, 100, 160, 0.08),
+        inset 0 1px 1px rgba(255, 255, 255, 0.06);
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    animation:
+        plannerAppear 1s cubic-bezier(.22, 1, .36, 1) both;
+}
+
+@keyframes plannerAppear {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(25px)
+            scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* =========================================
+   LITTLE COFFEE ICON
+   ========================================= */
+
+.plan-container::before {
+
+    content: "☕";
+
+    display: block;
+
+    margin-bottom: 12px;
+
+    font-size: clamp(2.8rem, 9vw, 4rem);
+
+    filter:
+        drop-shadow(
+            0 0 12px
+            rgba(255, 180, 200, 0.25)
+        );
+
+    animation:
+        coffeeFloat 3.5s ease-in-out infinite;
+}
+
+@keyframes coffeeFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+
+/* =========================================
+   TITLE
+   ========================================= */
+
+.plan-container h2 {
+
+    margin:
+        0
+        0
+        28px;
+
+    color: #fff3f7;
+
+    font-size:
+        clamp(1.6rem, 5vw, 2.35rem);
+
+    font-weight: 500;
+
+    line-height: 1.35;
+
+    text-shadow:
+        0 0 12px rgba(255, 180, 205, 0.18),
+        0 0 30px rgba(255, 120, 160, 0.08);
+}
+
+
+/* =========================================
+   FORM
+   ========================================= */
+
+#date-plan-form {
+    width: 100%;
+}
+
+
+/* =========================================
+   FORM GROUPS
+   ========================================= */
+
+.form-group {
+
+    margin-bottom: 20px;
+
+    text-align: left;
+
+    animation:
+        fieldAppear 0.7s ease both;
+}
+
+.form-group:nth-child(1) {
+    animation-delay: 0.10s;
+}
+
+.form-group:nth-child(2) {
+    animation-delay: 0.16s;
+}
+
+.form-group:nth-child(3) {
+    animation-delay: 0.22s;
+}
+
+.form-group:nth-child(4) {
+    animation-delay: 0.28s;
+}
+
+.form-group:nth-child(5) {
+    animation-delay: 0.34s;
+}
+
+@keyframes fieldAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================
+   LABELS
+   ========================================= */
+
+.form-group label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #eeb2c5;
+
+    font-size: 0.92rem;
+
+    font-weight: 600;
+
+    letter-spacing: 0.02em;
+}
+
+
+/* =========================================
+   INPUTS
+   ========================================= */
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+
+    width: 100%;
+
+    padding:
+        13px
+        15px;
+
+    border:
+        1px solid
+        rgba(255, 190, 215, 0.16);
+
+    border-radius: 13px;
+
+    outline: none;
+
+    background:
+        rgba(255, 255, 255, 0.055);
+
+    color: #fff1f5;
+
+    font-family: inherit;
+
+    font-size: 0.98rem;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease,
+        transform 0.2s ease;
+}
+
+
+/* =========================================
+   PLACEHOLDER
+   ========================================= */
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: rgba(255, 210, 225, 0.42);
+}
+
+
+/* =========================================
+   FOCUS
+   ========================================= */
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+
+    border-color:
+        rgba(255, 140, 175, 0.55);
+
+    background:
+        rgba(255, 255, 255, 0.075);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(255, 120, 160, 0.08),
+        0 0 18px
+        rgba(255, 100, 150, 0.08);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================
+   DATE + TIME
+   ========================================= */
+
+input[type="date"],
+input[type="time"] {
+
+    color-scheme: dark;
+}
+
+
+/* =========================================
+   SELECT
+   ========================================= */
+
+.form-group select {
+
+    cursor: pointer;
+
+    appearance: none;
+
+    background-image:
+        linear-gradient(45deg, transparent 50%, #e8a5bb 50%),
+        linear-gradient(135deg, #e8a5bb 50%, transparent 50%);
+
+    background-position:
+        calc(100% - 18px) 52%,
+        calc(100% - 12px) 52%;
+
+    background-size:
+        6px 6px,
+        6px 6px;
+
+    background-repeat: no-repeat;
+}
+
+
+/* =========================================
+   TEXTAREA
+   ========================================= */
+
+.form-group textarea {
+
+    min-height: 100px;
+
+    resize: vertical;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   SUBMIT BUTTON
+   ========================================= */
+
+.submit-button {
+
+    position: relative;
+
+    width: 100%;
+
+    margin-top: 8px;
+
+    padding:
+        15px
+        28px;
+
+    border:
+        1px solid
+        rgba(255, 150, 180, 0.45);
+
+    border-radius: 999px;
+
+    color: #fff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff8fab,
+            #ff6f91
+        );
+
+    font-family: inherit;
+
+    font-size: 1.05rem;
+
+    font-weight: 600;
+
+    letter-spacing: 0.04em;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 25px
+        rgba(255, 105, 145, 0.25),
+        inset 0 1px 1px
+        rgba(255, 255, 255, 0.3);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        filter 0.25s ease;
+}
+
+.submit-button:hover {
+
+    transform:
+        translateY(-2px)
+        scale(1.015);
+
+    box-shadow:
+        0 12px 30px
+        rgba(255, 105, 145, 0.38),
+        0 0 18px
+        rgba(255, 150, 180, 0.18);
+}
+
+.submit-button:active {
+
+    transform:
+        translateY(0)
+        scale(0.98);
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 600px) {
+
+    body {
+        align-items: flex-start;
+
+        padding:
+            18px
+            12px;
+    }
+
+    .plan-container {
+        position: relative;
+        z-index: 5;
+
+        width: min(92vw, 620px);
+
+        padding: 38px 34px;
+
+        overflow: visible;
+
+    }
+
+    .plan-container h2 {
+
+        margin-bottom: 23px;
+
+        font-size: 1.65rem;
+    }
+
+    .form-group {
+
+        margin-bottom: 17px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+
+        padding: 12px 13px;
+
+        font-size: 0.94rem;
+    }
+
+    .submit-button {
+
+        padding: 14px 22px;
+    }
+}
